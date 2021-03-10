@@ -164,6 +164,9 @@ public class S3SinkConnectorConfig extends StorageSinkConnectorConfig {
 
   public static final String S3_PATH_STYLE_ACCESS_ENABLED_CONFIG = "s3.path.style.access.enabled";
   public static final boolean S3_PATH_STYLE_ACCESS_ENABLED_DEFAULT = true;
+  
+  public static final String S3_TOPICS_PREFIX_CONFIG = "s3.topics.prefix";
+  public static final String S3_TOPICS_PREFIX_DEFAULT = null;
 
   public static final String STORE_KAFKA_KEYS_CONFIG = "store.kafka.keys";
   public static final String STORE_KAFKA_HEADERS_CONFIG = "store.kafka.headers";
@@ -592,6 +595,22 @@ public class S3SinkConnectorConfig extends StorageSinkConnectorConfig {
           ++orderInGroup,
           Width.SHORT,
           "Behavior for null-valued records"
+      );
+        
+      configDef.define(
+          S3_TOPICS_PREFIX_CONFIG,
+          Type.STRING,
+          S3_TOPICS_PREFIX_DEFAULT,
+          Importance.LOW,
+          "Prefix to the topic name that allows a Glue-compatible directory name."
+              + " E.g. when set to \"'topic'=\" the directory is named"
+              + " \"'topic'=S3_topic\" instead of just \"S3_topic\"."
+              +  "This will match the partitioning format"
+              + " \"'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH\"."
+          group,
+          ++orderInGroup,
+          Width.LONG,
+          "S3 topics prefix"
       );
     }
 
