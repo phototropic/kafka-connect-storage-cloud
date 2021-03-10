@@ -166,7 +166,7 @@ public class S3SinkConnectorConfig extends StorageSinkConnectorConfig {
   public static final boolean S3_PATH_STYLE_ACCESS_ENABLED_DEFAULT = true;
   
   public static final String S3_TOPICS_PREFIX_CONFIG = "s3.topics.prefix";
-  public static final String S3_TOPICS_PREFIX_DEFAULT = null;
+  public static final String S3_TOPICS_PREFIX_DEFAULT = "";
 
   public static final String STORE_KAFKA_KEYS_CONFIG = "store.kafka.keys";
   public static final String STORE_KAFKA_HEADERS_CONFIG = "store.kafka.headers";
