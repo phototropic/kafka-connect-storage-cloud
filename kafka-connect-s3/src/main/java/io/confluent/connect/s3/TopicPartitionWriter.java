@@ -64,6 +64,7 @@ public class TopicPartitionWriter {
   private final Partitioner<?> partitioner;
   private final TimestampExtractor timestampExtractor;
   private String topicsDir;
+  private String topicsPrefix;
   private State state;
   private final Queue<SinkRecord> buffer;
   private final SinkTaskContext context;
@@ -130,6 +131,7 @@ public class TopicPartitionWriter {
     isTaggingEnabled = connectorConfig.getBoolean(S3SinkConnectorConfig.S3_OBJECT_TAGGING_CONFIG);
     flushSize = connectorConfig.getInt(S3SinkConnectorConfig.FLUSH_SIZE_CONFIG);
     topicsDir = connectorConfig.getString(StorageCommonConfig.TOPICS_DIR_CONFIG);
+    topicsPrefix = connectorConfig.getString(StorageCommonConfig.S3_TOPICS_PREFIX_CONFIG);
     rotateIntervalMs = connectorConfig.getLong(S3SinkConnectorConfig.ROTATE_INTERVAL_MS_CONFIG);
     if (rotateIntervalMs > 0 && timestampExtractor == null) {
       log.warn(
@@ -497,7 +499,7 @@ public class TopicPartitionWriter {
   }
 
   private String fileKeyToCommit(String dirPrefix, long startOffset) {
-    String name = tp.topic()
+    String name = topicsPrefix + tp.topic()
                       + fileDelim
                       + tp.partition()
                       + fileDelim
